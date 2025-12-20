@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Wherefy – Industrial IoT Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366; /* Deep blue - German engineering color */
+            --primary-light: #004d99;
+            --secondary: #333333; /* Dark gray */
+            --accent: #cc0000; /* German red accent */
+            --accent-light: #e60000;
+            --light-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --text-dark: #1a1a1a;
+            --text-medium: #4d4d4d;
+            --text-light: #666666;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .card-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .card-container {
+                flex-direction: row;
+            }
+        }
+        
+        /* Profile Section - German Modern Style */
+        .profile-section {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-top: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+        }
+        
+        .logo-container {
+            width: 160px;
+            height: 160px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.03);
+        }
+        
+        .logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            filter: brightness(0) saturate(100%) invert(16%) sepia(89%) saturate(1362%) hue-rotate(194deg) brightness(95%) contrast(101%);
+        }
+        
+        .company-name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.5px;
+        }
+        
+        .tagline {
+            font-size: 18px;
+            color: var(--text-medium);
+            margin-bottom: 30px;
+            font-weight: 500;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        
+        .contact-info {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+            padding: 16px;
+            background: var(--light-bg);
+            border-radius: var(--radius-md);
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        
+        .contact-item:hover {
+            border-left-color: var(--accent);
+            background: white;
+            transform: translateX(3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .contact-icon.call {
+            background: var(--primary);
+        }
+        
+        .contact-icon.whatsapp {
+            background: #25D366;
+        }
+        
+        .contact-icon.email {
+            background: var(--accent);
+        }
+        
+        .contact-icon.website {
+            background: var(--secondary);
+        }
+        
+        .contact-details h4 {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .contact-details a, .contact-details p {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            display: block;
+        }
+        
+        .contact-details a:hover {
+            color: var(--primary);
+        }
+        
+        /* Services Section - German Modern */
+        .services-section {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            flex: 1.7;
+            border-top: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.5px;
+        }
+        
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-medium);
+            margin-top: 5px;
+            font-weight: 400;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-light);
+        }
+        
+        .service-card:hover::after {
+            opacity: 1;
+        }
+        
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.1), rgba(0, 51, 102, 0.05));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            color: var(--primary);
+            font-size: 22px;
+        }
+        
+        .service-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .service-card p {
+            font-size: 15px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px 0 0;
+            color: var(--text-light);
+            font-size: 14px;
+            grid-column: 1 / -1;
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+            font-weight: 500;
+        }
+        
+        footer span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .german-flag {
+            display: inline-flex;
+            height: 12px;
+            width: 18px;
+            margin: 0 5px;
+            vertical-align: middle;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        
+        .german-flag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 33.33%;
+            background-color: #000000;
+        }
+        
+        .german-flag::after {
+            content: '';
+            position: absolute;
+            top: 66.66%;
+            left: 0;
+            width: 100%;
+            height: 33.33%;
+            background-color: #FF0000;
+        }
+        
+        .german-flag span {
+            position: absolute;
+            top: 33.33%;
+            left: 0;
+            width: 100%;
+            height: 33.33%;
+            background-color: #DD0000;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .profile-section, .services-section {
+                padding: 30px 20px;
+            }
+            
+            .company-name {
+                font-size: 28px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding: 15px;
+            }
+            
+            .logo-container {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .company-name {
+                font-size: 24px;
+            }
+            
+            .tagline {
+                font-size: 16px;
+            }
+        }
+        
+        /* German precision styling */
+        .precision-line {
+            height: 2px;
+            width: 50px;
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+            margin: 15px 0;
+        }
+        
+        .tech-tag {
+            display: inline-block;
+            background: var(--light-bg);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-top: 15px;
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <!-- Profile Section -->
+        <section class="profile-section">
+            <div class="logo-container">
+                <img src="https://wherefy.in/wp-content/uploads/2025/06/wherefy.png" alt="Wherefy Logo">
+            </div>
+            
+            <h1 class="company-name">Wherefy Technologies</h1>
+            <div class="precision-line"></div>
+            <p class="tagline">Precision Industrial IoT • Smart Monitoring • Automation</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon call">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <a href="tel:+919409410883">+91 94094 10883</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>WhatsApp</h4>
+                        <a href="https://wa.me/919409410883" target="_blank">+91 94094 10883</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon email">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <a href="mailto:wherefy43@gmail.com">wherefy43@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon website">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Website</h4>
+                        <a href="https://wherefy.in" target="_blank">wherefy.in</a>
+                    </div>
+                </div>
+                
+                <div class="tech-tag">
+                    <i class="fas fa-cog"></i> German Engineering Inspired
+                </div>
+            </div>
+        </section>
+        
+        <!-- Services Section -->
+        <section class="services-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <div>
+                    <h2 class="section-title">Our IoT Solutions</h2>
+                    <p class="section-subtitle">Precision engineering and reliable technology for industrial digitization</p>
+                </div>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <h4>Industrial IoT Systems</h4>
+                    <p>Complete IoT ecosystems for industrial environments: sensors, gateways, cloud platforms, and intuitive dashboards for real-time monitoring and data-driven decision making.</p>
+                    <div class="tech-tag">End-to-End Solutions</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h4>CNC Machine Monitoring</h4>
+                    <p>Real-time tracking of machine status, cycle counts, downtime analysis, shift management, OEE calculation and productivity metrics to maximize throughput and minimize losses.</p>
+                    <div class="tech-tag">Precision Analytics</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4>Industrial Automation</h4>
+                    <p>Advanced automation solutions for manufacturing lines, seamless machine integration, signal acquisition, and process optimization using cutting-edge control and IoT technologies.</p>
+                    <div class="tech-tag">Seamless Integration</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h4>Asset Management</h4>
+                    <p>Centralized monitoring and management of industrial devices and assets with health status tracking, predictive alerts, remote diagnostics, and full lifecycle management.</p>
+                    <div class="tech-tag">Centralized Control</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h4>Hardware & Firmware Development</h4>
+                    <p>Custom firmware, mobile & web applications, industrial design, 3D printing, prototyping and manufacturing support for robust embedded and IoT hardware solutions.</p>
+                    <div class="tech-tag">Custom Engineering</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h4>Consulting & Custom Solutions</h4>
+                    <p>Strategic technology consulting for industrial digitization, system architecture design, and tailored solutions built to address your specific operational challenges.</p>
+                    <div class="tech-tag">Strategic Partnership</div>
+                </div>
+            </div>
+            
+            <footer>
+                <div class="german-flag"><span></span></div><br>
+                © <span>2025</span> Wherefy Technologies GmbH | Industrial IoT Solutions<br>
+                Precision Engineering • Reliability • Innovation
+            </footer>
+        </section>
+    </div>
+    
+    <script>
+        // Enhanced interactive elements with German precision theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            const contactItems = document.querySelectorAll('.contact-item');
+            
+            // Add precision animation to service cards
+            serviceCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Add precise animation to contact items
+            contactItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(3px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+            
+            // Add logo animation
+            const logo = document.querySelector('.logo-container');
+            logo.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.03)';
+            });
+            
+            logo.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+            
+            // Add click effect for all links
+            const allLinks = document.querySelectorAll('a');
+            allLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Create a ripple effect
+                    const rect = this.getBoundingClientRect();
+                    const circle = document.createElement('span');
+                    const diameter = Math.max(rect.width, rect.height);
+                    const radius = diameter / 2;
+                    
+                    circle.style.width = circle.style.height = diameter + 'px';
+                    circle.style.left = e.clientX - rect.left - radius + 'px';
+                    circle.style.top = e.clientY - rect.top - radius + 'px';
+                    circle.style.position = 'absolute';
+                    circle.style.borderRadius = '50%';
+                    circle.style.backgroundColor = 'rgba(0, 51, 102, 0.1)';
+                    circle.style.transform = 'scale(0)';
+                    circle.style.animation = 'ripple 0.6s linear';
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(circle);
+                    
+                    // Remove the circle after animation
+                    setTimeout(() => {
+                        circle.remove();
+                    }, 600);
+                });
+            });
+            
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
