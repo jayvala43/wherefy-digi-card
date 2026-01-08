@@ -85,18 +85,19 @@
         }
         
         .logo-container {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 25px;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border-color);
             transition: transform 0.3s ease;
+            overflow: hidden;
         }
         
         .logo-container:hover {
@@ -106,7 +107,7 @@
         .logo-container img {
             max-width: 100%;
             max-height: 100%;
-            /* Removed filter to make logo visible in original colors */
+            object-fit: contain;
         }
         
         .company-name {
@@ -167,7 +168,6 @@
         .contact-icon.call {
             background: var(--primary);
         }
-        
         
         .contact-icon.email {
             background: var(--accent);
@@ -407,8 +407,8 @@
             }
             
             .logo-container {
-                width: 130px;
-                height: 130px;
+                width: 150px;
+                height: 150px;
             }
             
             .company-name {
@@ -439,6 +439,25 @@
             margin-top: 15px;
             border: 1px solid var(--border-color);
         }
+        
+        /* Logo fallback styling */
+        .logo-fallback {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .logo-fallback span {
+            color: var(--accent);
+        }
+        
+        .logo-subtitle {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 5px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -446,9 +465,11 @@
         <!-- Profile Section -->
         <section class="profile-section">
             <div class="logo-container">
-                <img src="https://wherefy.in/wp-content/uploads/2025/06/wherefy.png" alt="Wherefy Logo">
+                <!-- IMPORTANT: Save your logo.jpg file in the SAME FOLDER as this HTML file -->
+                <img src="logo.jpg" alt="Wherefy Logo" onerror="this.onerror=null; showFallbackLogo()">
             </div>
             <div class="precision-line"></div>
+            <!-- <h1 class="company-name">Wherefy</h1> -->
             <p class="tagline">Precision Industrial IoT • Smart Monitoring • Automation</p>
             
             <div class="contact-info">
@@ -461,7 +482,6 @@
                         <a href="tel:+919409410883">+91 94094 10883</a>
                     </div>
                 </div>
-                
                 
                 <div class="contact-item">
                     <div class="contact-icon email">
@@ -632,6 +652,12 @@
                 });
             });
             
+            // Check if logo loaded successfully
+            const logoImg = document.querySelector('.logo-container img');
+            logoImg.addEventListener('load', function() {
+                console.log('Logo loaded successfully');
+            });
+            
             // Add CSS for ripple animation
             const style = document.createElement('style');
             style.textContent = `
@@ -644,6 +670,22 @@
             `;
             document.head.appendChild(style);
         });
+        
+        // Fallback function if logo doesn't load
+        function showFallbackLogo() {
+            const logoContainer = document.querySelector('.logo-container');
+            logoContainer.innerHTML = `
+                <div class="logo-fallback">
+                    WhereFy
+                    <div class="logo-subtitle">Intelligence in motion</div>
+                </div>
+            `;
+            logoContainer.style.padding = '20px';
+            logoContainer.style.display = 'flex';
+            logoContainer.style.alignItems = 'center';
+            logoContainer.style.justifyContent = 'center';
+            logoContainer.style.flexDirection = 'column';
+        }
     </script>
 </body>
 </html>
